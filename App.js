@@ -1,67 +1,72 @@
 import * as React from 'react';
-import { useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, ActivityIndicator, Button, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Menu } from 'react-native-paper';
 import axios from "axios";
 import Logo from './src/component/Logo';
 
+
 function Header() {
   return (
-    <View style={{ height: 427, width: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#107EA7' }}>
+    <View style={styles.headerContainer}>
       <Logo/>
-      <Text style={{ top: 110 }}>Mon En-tête</Text>
     </View>
   );
 }
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-      try {
-        const response = await axios.get('https://rickandmortyapi.com/api/character')
-        console.log(response)
-      } catch (e) {
-        console.log(e);
-      }
+    try {
+      const response = await axios.get(`https://rickandmortyapi.com/api/character?page=${page}`);
+      setData(prevData => [...prevData, ...response.data.results]);
+      setPage(prevPage => prevPage + 1);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
-    <View style={{ top: 54, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#47567B' }}>
-      <Header />
-      <Text style={{ top: -94 }}>HomeScreen</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button1} onPress={() => console.log('Bouton 1 cliqué!')}>
-          <Text style={styles.buttonText}>Personnages</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button2} onPress={() => console.log('Bouton 2 cliqué!')}>
-          <Text style={styles.buttonText}>Filtrer</Text>
-        </TouchableOpacity>
-      </View>
+    <View style={styles.container}>
+      <Header/>
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <Text>{item.name}</Text>
+            <Image source={{ uri: item.image }} style={{ width: 50, height: 50 }} />
+          </View>
+        )}
+        onEndReached={fetchData}
+        onEndReachedThreshold={0.5}
+        numColumns={2} // Ajoutez cette ligne
+      />
     </View>
   );
 }
 
+
 function SearchScreen() {
   return (
-    <View style={{ top: 54, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#47557B' }}>
+    <View style={{ backgroundColor: '#47557B' }}>
       <Header />
-      <Text style={{ top: -94 }}>Recherche</Text>
+      
     </View>
   );
 }
 
 function SearchScreenProfil() {
   return (
-    <View style={{ top: 54, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#47557B' }}>
+    <View style={{backgroundColor: '#47557B' }}>
       <Header />
-      <Text style={{ top: -94 }}>Recherche</Text>
     </View>
   );
 }
@@ -91,30 +96,19 @@ export default function App() {
 
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '60%',
-  },
-  button1: {
-    backgroundColor: 'white',
-    padding: 10,
-    margin: 10,
-    width: '45%',
+  container: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    top: -417,
-    borderRadius: 50,
   },
-  button2: {
-    backgroundColor: 'white',
-    padding: 10,
-    margin: 10,
-    width: '45%',
+  itemContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    top: -417,
-    borderRadius: 50,
+    margin: 10, // Ajoutez des marges pour espacer les éléments
   },
-  buttonText: {
-    color: 'black',
+  headerContainer: {
+    backgroundColor: '#47557B', // Remplacez ceci par la couleur de votre choix
+    // Ajoutez d'autres styles si nécessaire
   },
 });

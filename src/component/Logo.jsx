@@ -5,7 +5,7 @@ const Logo = () => {
 
 return <Image 
 style={styles.image}
-source={require('../../assets/img/coin.png')}
+source={require('../../assets/img/logo.png')}
 resizeMode="contain"
 />;
 
