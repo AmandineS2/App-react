@@ -1,26 +1,40 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Menu } from 'react-native-paper';
 import axios from "axios";
+import Logo from './src/component/Logo';
 
 function Header() {
   return (
-    <View style={{ height: 427, width: 1500, top:-310, alignItems: 'center', justifyContent: 'center', backgroundColor: '#107EA7' }}>
+    <View style={{ height: 427, width: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#107EA7' }}>
+      <Logo/>
       <Text style={{ top: 110 }}>Mon En-tête</Text>
     </View>
   );
 }
 
 function HomeScreen() {
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+      try {
+        const response = await axios.get('https://rickandmortyapi.com/api/character')
+        console.log(response)
+      } catch (e) {
+        console.log(e);
+      }
+  };
+
   return (
     <View style={{ top: 54, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#47567B' }}>
       <Header />
-      <Image
-        style={{width: 100, height: 100}}
-        source={{uri: '../assets/coin!.png'}}/>
       <Text style={{ top: -94 }}>HomeScreen</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button1} onPress={() => console.log('Bouton 1 cliqué!')}>
@@ -58,7 +72,7 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Recherche" component={SearchScreen} />
       <Tab.Screen name="Profil" component={SearchScreenProfil} />
