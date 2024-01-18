@@ -8,10 +8,11 @@ import SearchScreen from './src/screens/SearchScreen';
 import SearchScreenProfil from './src/screens/SearchScreenProfil';
 import Header from './src/component/Header'; 
 
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const ListStack = () => {
+const detailcharacters = () => {
 return (
   <Stack.Navigator
   initialRouteName='Home'
@@ -20,7 +21,7 @@ return (
   }}
 >
   <Stack.Screen name="Home" component={HomeScreen} />
-  {/* <Stack.Screen name="Detail" component={Detail} /> */}
+  <Stack.Screen name="Detail" component={detailcharacters} />
 </Stack.Navigator>
 )
 }
@@ -36,7 +37,7 @@ function App() {
           ),
         }}
       >
-        <Tab.Screen name="ListStack" component={ListStack} />
+        <Tab.Screen name="Home" component={detailcharacters} />
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Profil" component={SearchScreenProfil} />
       </Tab.Navigator>

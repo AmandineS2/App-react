@@ -1,22 +1,28 @@
 import { Image, StyleSheet, View } from "react-native";
 import React from "react"; 
 
-const header = () => {
-
-return <Image 
-style={styles.header}
-source={require('../../assets/img/logo.png')}
-resizeMode="contain"
-/>;
-
+const Header = () => {
+  return (
+    <View style={styles.header}>
+      <Image 
+        source={require('../../assets/img/logo.png')}
+        resizeMode="contain"
+        style={styles.logo} // Appliquer le style du logo
+      />
+    </View>
+  );
 };
 
-export default header;
+export default Header;
 
 const styles = StyleSheet.create({
-    header: {
-        height: 100,
-        width: 100,
-        alignSelf: "center",
-    }
+  header: {
+    backgroundColor: 'black',
+    width: '100%', // Définit la largeur sur 100% de la largeur de l'écran
+    alignItems: 'center', // Centre le contenu horizontalement
+  },
+  logo: {
+    width: 150, // Ajustez la largeur de votre logo selon vos besoins
+    height: 150, // Ajustez la hauteur de votre logo selon vos besoins
+  }
 });

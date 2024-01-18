@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, Image } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
 import axios from "axios";
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -26,14 +27,22 @@ function HomeScreen() {
     }
   };
 
+  const navigation = useNavigation();
+
+  const handleCharacterPress = (character) => {
+    navigation.navigate('Detail', { character: character });
+  };
+
   const renderItem = ({ item }) => (
-    <View style={{ flex: 1, flexDirection: 'row', padding: 20 }}>
-      <Image
-        style={{ width: 50, height: 50 }}
-        source={{ uri: item.image }}
-      />
-      <Text>{item.name}</Text>
-    </View>
+    <TouchableOpacity onPress={() => handleCharacterPress(item)}>
+      <View style={{ flex: 1, flexDirection: 'row', padding: 20 }}>
+        <Image
+          style={{ width: 50, height: 50 }}
+          source={{ uri: item.image }}
+        />
+        <Text>{item.name}</Text>
+      </View>
+    </TouchableOpacity>
   );
 
   return (
