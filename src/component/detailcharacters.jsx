@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
-function detailcharacters() {
+function DetailCharacters() {
   const route = useRoute();
   const { character } = route.params;
 
@@ -20,4 +20,4 @@ function detailcharacters() {
   );
 }
 
-export default detailcharacters;
+export default DetailCharacters;

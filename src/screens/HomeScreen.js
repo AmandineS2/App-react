@@ -52,7 +52,7 @@ function HomeScreen() {
         numColumns={2} // Set the number of columns to 2
         columnWrapperStyle={{ justifyContent: 'space-around' }} // Add space around the items in the columns
         renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={(item,index) => `${item.id}-${index}`}
         onEndReached={fetchData}
         onEndReachedThreshold={0.5}
         ListFooterComponent={loading ? <ActivityIndicator size="large" color="#0000ff" /> : null}
