@@ -35,21 +35,22 @@ function HomeScreen() {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleCharacterPress(item)}>
-      <View style={{ flex: 1, flexDirection: 'row', padding: 20 }}>
+      <View style={{ flex: 1, flexDirection: 'row', padding: 20, alignItems: 'center', backgroundColor: '#3EA54A' }}>
         <Image
-          style={{ width: 50, height: 50 }}
+          style={{ width: 50, height: 50, marginRight: 10 }} // Add marginRight to create space between image and text
           source={{ uri: item.image }}
         />
-        <Text>{item.name}</Text>
+        <Text style={{ color: 'white' }}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <View style={{ flex: 1, paddingTop: 20 }}>
-      
+    <View style={{ flex: 1, paddingTop: 20, backgroundColor: '#3EA54A', alignItems: 'center' }}> {/* Set the background color to dark green and align items to center */}
       <FlatList
         data={data}
+        numColumns={2} // Set the number of columns to 2
+        columnWrapperStyle={{ justifyContent: 'space-around' }} // Add space around the items in the columns
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
         onEndReached={fetchData}

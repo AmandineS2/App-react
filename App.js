@@ -31,10 +31,31 @@ function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={{
-          header: () => (
-            <Header />
-          ),
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused
+                ? require('../assets/img/profil.png')
+                : require('../assets/img/profil.png');
+            } else if (route.name === 'Search') {
+              iconName = focused
+                ? require('../assets/img/profil.png')
+                : require('../assets/img/profil.png');
+            } else if (route.name === 'Profil') {
+              iconName = focused
+                ? require('../assets/img/profil.png')
+                : require('../assets/img/profil.png');
+            }
+
+            // You can return any component that you like here!
+            return <Image source={iconName} style={{ width: 20, height: 20 }} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
         }}
       >
         <Tab.Screen name="Home" component={detailcharacters} />

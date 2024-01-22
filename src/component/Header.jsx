@@ -17,7 +17,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: 'black',
+    backgroundColor: '#1E3442',
     width: '100%', // Définit la largeur sur 100% de la largeur de l'écran
     alignItems: 'center', // Centre le contenu horizontalement
   },

@@ -35,9 +35,12 @@ function detailcharacters() {
         style={{ width: 100, height: 100 }}
         source={{ uri: character.image }}
       />
-      <Text>Nom : {character.name}</Text>
+      <Text>Nom : {character.firstname}</Text>
+      <Text>prénom : {character.lastname}</Text>
       <Text>Statut : {character.status}</Text>
       <Text>Espèce : {character.species}</Text>
+      <Text>Lieu : {character.locations}</Text>
+      <Text>Episode : {character.episode}</Text>
       {/* Affichez d'autres détails du personnage ici */}
     </View>
   );
