@@ -1,33 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, ActivityIndicator } from 'react-native';
-import axios from "axios";
+import React from 'react';
+import { View, Text, Image } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
 function detailcharacters() {
-  const [character, setCharacter] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      try {
-        const response = await axios.get('https://rickandmortyapi.com/api/character/1'); // Remplacez 1 par l'ID du personnage souhaité
-        setCharacter(response.data);
-      } catch (error) {
-        console.error('Erreur lors de la récupération du personnage :', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCharacter();
-  }, []);
-
-  if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
-  }
-
-  if (!character) {
-    return <Text>Aucun personnage trouvé</Text>;
-  }
+  const route = useRoute();
+  const { character } = route.params;
 
   return (
     <View>
@@ -35,12 +12,9 @@ function detailcharacters() {
         style={{ width: 100, height: 100 }}
         source={{ uri: character.image }}
       />
-      <Text>Nom : {character.firstname}</Text>
-      <Text>prénom : {character.lastname}</Text>
+      <Text>Nom : {character.name}</Text>
       <Text>Statut : {character.status}</Text>
       <Text>Espèce : {character.species}</Text>
-      <Text>Lieu : {character.locations}</Text>
-      <Text>Episode : {character.episode}</Text>
       {/* Affichez d'autres détails du personnage ici */}
     </View>
   );
