@@ -46,7 +46,7 @@ function App() {
             } else if (route.name === 'Profil') {
               iconName = focused
                 ? require('../assets/img/profil.png')
-                : require('../assets/img/profil.png');
+                : require('../assets/img/profi.png');
             }
 
             // You can return any component that you like here!
