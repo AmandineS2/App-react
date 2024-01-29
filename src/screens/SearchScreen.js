@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, TextInput, FlatList, Text, ActivityIndicator } from 'react-native';
+import { View, Image, TextInput, FlatList, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import axios from "axios";
 
 function SearchScreen() {
@@ -26,9 +26,9 @@ function SearchScreen() {
   }, [searchValue]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'green', padding: 16 }}>
+    <View style={styles.container}>
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: '#fff', paddingHorizontal: 8, marginBottom: 16 }}
+        style={styles.input}
         placeholder="Rechercher..."
         value={searchValue}
         onChangeText={text => setSearchValue(text)}
@@ -38,9 +38,9 @@ function SearchScreen() {
         data={searchResults}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={{ marginBottom: 16 }}>
+          <View style={styles.itemContainer}>
             <Image
-              style={{ width: 100, height: 100 }}
+              style={styles.image}
               source={{ uri: item.image }} // Assuming the image URL is under the 'image' property of each character object
             />
             <Text>{item.name}</Text>
@@ -52,5 +52,33 @@ function SearchScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#3EA54A',
+    padding: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 8,
+    marginBottom: 16,
+    alignSelf: 'stretch',
+  },
+  itemContainer: {
+    marginBottom: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 100,
+    height: 100,
+  },
+});
 
 export default SearchScreen;

@@ -34,16 +34,16 @@ function HomeScreen() {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleCharacterPress(item)}>
-      <View style={{ flex: 1, flexDirection: 'row', padding: 20, alignItems: 'center', backgroundColor: '#3EA54A' }}>
-        <Image
-          style={{ width: 50, height: 50, marginRight: 10 }} // Add marginRight to create space between image and text
-          source={{ uri: item.image }}
-        />
-        <Text style={{ color: 'white' }}>{item.name}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+  <TouchableOpacity onPress={() => handleCharacterPress(item)}>
+    <View style={{ alignItems: 'center', padding: 20, backgroundColor: '#3EA54A', borderRadius: 10, margin: 5 }}>
+      <Image
+        style={{ width: 100, height: 100, marginBottom: 5, borderRadius: 5 }}
+        source={{ uri: item.image }}
+      />
+      <Text style={{ color: 'white', backgroundColor: 'black', borderRadius: 10, padding: 10, margin: 5 }}>{item.name}</Text>
+    </View>
+  </TouchableOpacity>
+);
 
   return (
     <View style={{ flex: 1, paddingTop: 20, backgroundColor: '#3EA54A', alignItems: 'center' }}> {/* Set the background color to dark green and align items to center */}
@@ -60,5 +60,7 @@ function HomeScreen() {
     </View>
   );
 }
+
+
 
 export default HomeScreen;
