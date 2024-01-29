@@ -39,7 +39,6 @@ function App() {
           ),
         }}
       >
-        
         <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Like" component={LikeScreen} />

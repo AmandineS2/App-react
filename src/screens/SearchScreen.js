@@ -39,13 +39,13 @@ function SearchScreen() {
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
-            <Image
-              style={styles.image}
-              source={{ uri: item.image }} // Assuming the image URL is under the 'image' property of each character object
-            />
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.image}
+                source={{ uri: item.image }}
+              />
+            </View>
             <Text>{item.name}</Text>
-           
-            {/* You can display other character details here */}
           </View>
         )}
       />
@@ -73,7 +73,13 @@ const styles = StyleSheet.create({
   itemContainer: {
     marginBottom: 16,
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  imageContainer: {
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 8,
   },
   image: {
     width: 100,
