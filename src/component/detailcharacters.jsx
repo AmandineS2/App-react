@@ -1,10 +1,28 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { LikedCharactersContext } from './LikedCharactersContext';
 
 function DetailCharacters() {
   const route = useRoute();
   const { character } = route.params;
+
+  // Ajoutez un état pour suivre si l'image a été aimée
+  const [liked, setLiked] = useState(false);
+
+  // Utilisez useContext pour accéder à likedCharacters et setLikedCharacters
+  const { likedCharacters, setLikedCharacters } = useContext(LikedCharactersContext);
+
+  // Ajoutez une fonction pour aimer un personnage
+  const likeCharacter = () => {
+    setLiked(!liked);
+    if (!liked) {
+      setLikedCharacters([...likedCharacters, character]);
+    } else {
+      setLikedCharacters(likedCharacters.filter(item => item.id !== character.id));
+    }
+  };
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -17,6 +35,11 @@ function DetailCharacters() {
         <Text>Statut : {character.status}</Text>
         <Text>Espèce : {character.species}</Text>
         <Text>Localisation : {character.location?.name}</Text>
+
+        {/* Modifiez le bouton "Like" pour qu'il aime un personnage lorsqu'il est pressé */}
+        <TouchableOpacity onPress={likeCharacter}>
+          <Icon name={liked ? 'heart' : 'heart-outline'} size={24} color="red" style={{ paddingTop: 10 }} />
+        </TouchableOpacity>
       </View>
     </View>
   );

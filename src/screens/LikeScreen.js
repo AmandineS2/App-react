@@ -1,16 +1,17 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text } from 'react-native';
+import { LikedCharactersContext } from '../component/LikedCharactersContext';
 
-// import Header from './Header';
+function LikeScreen() {
+  const { likedCharacters } = useContext(LikedCharactersContext);
 
-function SearchScreenProfil() {
   return (
-    <View style={{ backgroundColor: '#47557B' }}>
-      
-      
-      
+    <View>
+      {likedCharacters.map(character => (
+        <Text key={character.id}>{character.name}</Text>
+      ))}
     </View>
   );
 }
 
-export default SearchScreenProfil;
+export default LikeScreen;
