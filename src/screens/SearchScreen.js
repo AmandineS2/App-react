@@ -36,6 +36,7 @@ function SearchScreen() {
       {loading && <ActivityIndicator size="large" color="#0000ff" />}
       <FlatList
         data={searchResults}
+        numColumns={2} 
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     marginBottom: 16,
     alignItems: 'center',
+    flex: 1, // add this
   },
   imageContainer: {
     borderWidth: 1,

@@ -41,15 +41,17 @@ function App() {
             header: () => (
               <Header />
             ),
+            
+            tabBarShowLabel: false, 
+            tabBarStyle: { backgroundColor: '#1E3442' },
           }}
         >
-          {/* Vos autres composants vont ici */}
           <Tab.Screen 
             name="Home" 
             component={HomeStack} 
             options={{
               tabBarIcon: ({focused, color, size}) => (
-                <Icon name="home" color={focused ? 'blue' : color} size={size} />
+                <Icon name="home" color={focused ? '#60A85F' : color} size={size} />
               ),
             }}
           />
@@ -58,7 +60,7 @@ function App() {
             component={SearchScreen} 
             options={{
               tabBarIcon: ({focused, color, size}) => (
-                <Icon name="magnify" color={focused ? 'blue' : color} size={size} />
+                <Icon name="magnify" color={focused ? '#60A85F' : color} size={size} />
               ),
             }}
           />
@@ -67,7 +69,7 @@ function App() {
             component={LikeScreen} 
             options={{
               tabBarIcon: ({focused, color, size}) => (
-                <Icon name="heart" color={focused ? 'blue' : color} size={size} />
+                <Icon name="heart" color={focused ? '#60A85F' : color} size={size} />
               ),
             }}
           />
@@ -76,7 +78,7 @@ function App() {
             component={SearchScreenProfil} 
             options={{
               tabBarIcon: ({focused, color, size}) => (
-                <Icon name="account" color={focused ? 'blue' : color} size={size} />
+                <Icon name="account" color={focused ? '#60A85F' : color} size={size} />
               ),
             }}
           />

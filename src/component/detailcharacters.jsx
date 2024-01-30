@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LikedCharactersContext } from './LikedCharactersContext';
@@ -25,7 +25,7 @@ function DetailCharacters() {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <View style={{ alignItems: 'center', padding: 20, backgroundColor: '#e3e3e3', borderRadius: 10, margin: 10 }}>
         <Image
           style={{ width: 100, height: 100, borderRadius: 10 }}
@@ -44,5 +44,12 @@ function DetailCharacters() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#3EA54A',
+  },
+});
 
 export default DetailCharacters;
