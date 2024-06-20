@@ -1,79 +1,91 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import axios from "axios";
+import HomeScreen from './src/screens/HomeScreen';
+import SearchScreen from './src/screens/SearchScreen';
+import LikeScreen from './src/screens/LikeScreen';
+import SearchScreenProfil from './src/screens/SearchScreenProfil';
+import Header from './src/component/Header'; 
+import DetailCharacters from './src/component/detailcharacters';
+import { LikedCharactersContext } from './src/component/LikedCharactersContext';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-function Header() {
-  return (
-    <View style={{ height: 427, width: 1500, top:-310, alignItems: 'center', justifyContent: 'center', backgroundColor: 'red' }}>
-      <Text style={{ top: 110 }}>Mon En-tête</Text>
-    </View>
-  );
-}
-
-function HomeScreen() {
-  return (
-    <View style={{ top: 54, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'grey' }}>
-      <Header />
-      <Text style={{ top: -94 }}>HomeScreen</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button1} onPress={() => console.log('Bouton 1 cliqué!')}>
-          <Text style={styles.buttonText}>Personnages</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button2} onPress={() => console.log('Bouton 2 cliqué!')}>
-          <Text style={styles.buttonText}>Filtrer</Text>
-        </TouchableOpacity>
-      </View>
-      <Footer />
-    </View>
-  );
-}
-
-function Footer() {
-  return (
-    <View style={{ height: 50, width: 1500, top: 140, alignItems: 'center', justifyContent: 'center', backgroundColor: 'blue' }}>
-      <Text style={{ top: 2 }}>Footer</Text>
-    </View>
-  );
-}
-
+const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function App() {
+const HomeStack = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      initialRouteName='Home'
+      screenOptions={{
+        headerShown: false
+      }}
+    >
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Detail" component={DetailCharacters} />
+    </Stack.Navigator>
+  )
+}
+
+function App() {
+  const [likedCharacters, setLikedCharacters] = useState([]);
+
+  return (
+    <LikedCharactersContext.Provider value={{ likedCharacters, setLikedCharacters }}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            header: () => (
+              <Header />
+            ),
+            
+            tabBarShowLabel: false, 
+            tabBarStyle: { backgroundColor: '#1E3442' },
+          }}
+        >
+          <Tab.Screen 
+            name="Home" 
+            component={HomeStack} 
+            options={{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon name="home" color={focused ? '#60A85F' : color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen 
+            name="Search" 
+            component={SearchScreen} 
+            options={{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon name="magnify" color={focused ? '#60A85F' : color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen 
+            name="Like" 
+            component={LikeScreen} 
+            options={{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon name="heart" color={focused ? '#60A85F' : color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen 
+            name="Profil" 
+            component={SearchScreenProfil} 
+            options={{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon name="account" color={focused ? '#60A85F' : color} size={size} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </LikedCharactersContext.Provider>
   );
 }
 
 export default App;
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '60%',
-  },
-  button1: {
-    backgroundColor: 'black',
-    padding: 10,
-    margin: 10,
-    width: '45%',
-    alignItems: 'center',
-    top: 50,
-  },
-  button2: {
-    backgroundColor: 'green',
-    padding: 10,
-    margin: 10,
-    width: '45%',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-  },
-});
